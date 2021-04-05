@@ -1,0 +1,20 @@
+Queue
+add：添加一个元素，超过容量限制，抛异常：IllegalStateException
+offer：使用受限容量的queue时，超过容量限制返回false，不会抛异常
+remove:弹出一个元素，当队列为空时，抛异常：NoSuchElementException
+poll：弹出一个元素，当队列为空时，返回null，不会抛异常
+element：返回队列的第一个元素，不弹出，当队列为空时，抛异常：NoSuchElementException
+peek：返回队列的第一个元素，不弹出，当队列为空时，返回null，不会抛异常
+
+PriorityQueue，默认初始化容量：11
+add:直接调用offer方法
+offer：元素为空，直接抛异常：NullPointerException，modCount+1，判断是否需要扩容(容量小于64，扩容成2倍容量，否则扩容50%)，
+    size+1，i=0的话，设置改元素为第一个元素，否则向queue中的相应位置插入元素
+peek：size=0时，返回null；否则返回第一个元素
+remove：遍历查找该元素，找不到return false，否则，调用removeAt，将其删除
+removeAt：modCount+1，判断是不是最后一个元素，如果是，将最后一个元素设置为null，用队列中的最后一个元素替换i位置的元素，调整queue顺序
+removeEq：循环判断元素是否等于该元素，等于，调用removeAt方法进行删除
+contains：判断元素是否存在，遍历进行判断，存在返回true，不存在返回false
+size：返回size
+clear：循环将所有的元素设置为null，size=0
+poll：size=0的话，返回null,最后一个元素替换成第一个元素，最后一个元素设置为空，调整队列顺序
